@@ -67,16 +67,16 @@ class Anime777:
 	def edit_profile(
 			self,
 			photo_url: str = None,
-			section_color: str = "",
-			text_color: str = "",
+			section_color: str = None,
+			text_color: str = None,
 			theme_color: str = "dark",
-			header_color: str = "",
-			link_color: str = "",
-			nickname_color: str = "",
-			profile_header: str = "",
+			header_color: str = None,
+			link_color: str = None,
+			nickname_color: str = None,
+			profile_header: str = None,
 			profile_background: str = None,
-			aura_color: str = "",
-			aura_item: str = ""):
+			aura_color: str = None,
+			aura_item: str = None):
 		data = {}
 		if photo_url:
 			data["photo"] = photo_url
