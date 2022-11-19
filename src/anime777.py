@@ -2,7 +2,7 @@ import requests
 from time import time
 
 class Anime777:
-	def __init__(self):
+	def __init__(self) -> None:
 		self.api = "https://anime777.ru/api"
 		self.headers = {
 			"connection": "keep-alive",
@@ -13,7 +13,7 @@ class Anime777:
 		self.user_avatar = None
 		self.connect_sid = None
 
-	def login_with_connect_sid(self, connect_sid: str):
+	def login_with_connect_sid(self, connect_sid: str) -> dict:
 		self.connect_sid = connect_sid
 		self.headers["cookie"] = f"connect.sid={self.connect_sid}"
 		response = self.get_current_user()
@@ -22,22 +22,22 @@ class Anime777:
 		self.user_avatar = response["photo"]
 		return response
 
-	def get_current_user(self):
+	def get_current_user(self) -> dict:
 		return requests.get(
 			f"{self.api}/user/profile",
 			headers=self.headers).json()
 
-	def get_released(self):
+	def get_released(self) -> dict:
 		return requests.get(
 			f"{self.api}/enter/released",
 			headers=self.headers).json()
 
-	def get_updates(self):
+	def get_updates(self) -> dict:
 		return requests.get(
 			f"{self.api}/enter/updates",
 			headers=self.headers).json()
 
-	def open_profile(self):
+	def open_profile(self) -> dict:
 		data = {
 			"closed": False
 		}
@@ -46,7 +46,7 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def close_profile(self):
+	def close_profile(self) -> dict:
 		data = {
 			"closed": True
 		}
@@ -55,7 +55,7 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def change_nickname(self, nickname: str):
+	def change_nickname(self, nickname: str) -> dict:
 		data = {
 			"name": nickname
 		}
@@ -76,7 +76,7 @@ class Anime777:
 			profile_header: str = None,
 			profile_background: str = None,
 			aura_color: str = None,
-			aura_item: str = None):
+			aura_item: str = None) -> dict:
 		data = {}
 		if photo_url:
 			data["photo"] = photo_url
@@ -105,27 +105,27 @@ class Anime777:
 			json=data,
 			headers=self.headers).json()
 
-	def get_friends(self):
+	def get_friends(self) -> dict:
 		return requests.get(
 			f"{self.api}/user/profile/friends",
 			headers=self.headers).json()
 
-	def get_sent_comments(self):
+	def get_sent_comments(self) -> dict:
 		return requests.get(
 			f"{self.api}/user/profile/comments",
 			headers=self.headers).json()
 
-	def get_referrals(self):
+	def get_referrals(self) -> dict:
 		return requests.get(
 			f"{self.api}/user/profile/referrals",
 			headers=self.headers).json()
 
-	def get_favorites(self):
+	def get_favorites(self) -> dict:
 		return requests.get(
 			f"{self.api}/user/profile/favs",
 			headers=self.headers).json()
 
-	def get_index_data(self):
+	def get_index_data(self) -> dict:
 		return requests.get(
 			f"{self.api}/indexdata",
 			headers=self.headers).json()
@@ -135,7 +135,7 @@ class Anime777:
 			sort: str = None,
 			year: int = None,
 			page: int = 1,
-			status: str = None):
+			status: str = None) -> dict:
 		data = {}
 		if year:
 			data["year"] = year
@@ -150,17 +150,17 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def get_need_friends(self, page: int = 1):
+	def get_need_friends(self, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/need-friends?page={page}",
 			headers=self.headers).json()
 
-	def get_user_profile(self, user_id: str):
+	def get_user_profile(self, user_id: str) -> dict:
 		return requests.get(
 			f"{self.api}/users/{user_id}",
 			headers=self.headers).json()
 
-	def friendly_check(self, user_id: str):
+	def friendly_check(self, user_id: str) -> dict:
 		data = {
 			"user_id": user_id
 		}
@@ -169,12 +169,12 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def get_watch_info(self, watch_id: str):
+	def get_watch_info(self, watch_id: str) -> dict:
 		return requests.get(
 			f"{self.api}/watch?id={watch_id}",
 			headers=self.headers).json()
 
-	def get_watch_comments(self, watch_id: str, page: int  = 1):
+	def get_watch_comments(self, watch_id: str, page: int  = 1) -> dict:
 		return requests.get(
 			f"{self.api}/comments?id={watch_id}&page={page}",
 			headers=self.headers).json()
@@ -183,7 +183,7 @@ class Anime777:
 			self,
 			text: str,	
 			id: str,
-			parent_id: str = None):
+			parent_id: str = None) -> dict:
 		data = {
 			"id": id,
 			"user_id": self.user_id,
@@ -200,27 +200,27 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def delete_comment(self, comment_id: str):
+	def delete_comment(self, comment_id: str) -> dict:
 		return requests.delete(
 			f"{self.api}/comments?id={comment_id}&user_id={self.user_id}",
 			headers=self.headers).text
 
-	def get_schedule(self):
+	def get_schedule(self) -> dict:
 		return requests.get(
 			f"{self.api}/schedule",
 			headers=self.headers).json()
 
-	def get_blogs(self, page: int = 1):
+	def get_blogs(self, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/blogs?page={page}",
 			headers=self.headers).json()
 
-	def get_blog_articles(self, blog_id: str, page: int = 1):
+	def get_blog_articles(self, blog_id: str, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/blogs/{blog_id}/articles?page={page}",
 			headers=self.headers).json()
 
-	def get_blog_article(self, blog_id: str, article_id: str):
+	def get_blog_article(self, blog_id: str, article_id: str) -> dict:
 		return requests.get(
 			f"{self.api}/blogs/{blog_id}/{article_id}",
 			headers=self.headers).json()
@@ -229,12 +229,12 @@ class Anime777:
 			self,
 			blog_id: str,
 			article_id: str,
-			page: int = 1):
+			page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/comments?id={blog_id}-{article_id}&page={page}",
 			headers=self.headers).json()
 
-	def put_reaction(self, id: str, reaction: str):
+	def put_reaction(self, id: str, reaction: str) -> dict:
 		data = {
 			"id": id,
 			"reaction": reaction
@@ -244,24 +244,24 @@ class Anime777:
 			data=data,
 			headers=self.headers).text
 
-	def get_comments(self, page: int = None):
+	def get_comments(self, page: int = None) -> dict:
 		url = f"{self.api}/comments-page"
 		if page:
 			url += f"?page={page}"
 		return requests.get(
 			url, headers=self.headers).json()
 
-	def get_users(self, page: int = 1):
+	def get_users(self, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/users?page={page}",
 			headers=self.headers).json()
 
-	def get_articles(self):
+	def get_articles(self) -> dict:
 		return requests.get(
 			f"{self.api}/articles",
 			headers=self.headers).json()
 
-	def send_pm(self, user_id: str, text: str):
+	def send_pm(self, user_id: str, text: str) -> dict:
 		data = {
 			"to": user_id,
 			"text": text
@@ -271,7 +271,7 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def send_friend_request(self, user_id: str):
+	def send_friend_request(self, user_id: str) -> dict:
 		data = {
 			"to": user_id
 		}
@@ -280,22 +280,22 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def cancel_friend_request(self, user_id: str):
+	def cancel_friend_request(self, user_id: str) -> dict:
 		return requests.delete(
 			f"{self.api}/user/friendly?id={user_id}",
 			headers=self.headers).json()
 
-	def get_rooms(self):
+	def get_rooms(self) -> dict:
 		return requests.get(
 			f"{self.api}/rooms",
 			headers=self.headers).json()
 
-	def get_partners_list(self, page: int = 1):
+	def get_partners_list(self, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/partnerslist?page={page}",
 			headers=self.headers).json()
 
-	def check_partners_stats(self, channel_name: str):
+	def check_partners_stats(self, channel_name: str) -> dict:
 		data = {
 			"channel_name": channel_name
 		}
@@ -304,22 +304,22 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def get_streams(self):
+	def get_streams(self) -> dict:
 		return requests.get(
 			f"{self.api}/tv",
 			headers=self.headers).json()
 
-	def get_popular(self):
+	def get_popular(self) -> dict:
 		return requests.get(
 			f"{self.api}/popular",
 			headers=self.headers).json()
 
-	def get_quiz(self, type: str = "anime"):
+	def get_quiz(self, type: str = "anime") -> dict:
 		return requests.get(
 			f"{self.api}/quiz?type={type}",
 			headers=self.headers).json()
 
-	def sent_quiz_result(self, result: str):
+	def sent_quiz_result(self, result: str) -> dict:
 		data = {
 			"result": result
 		}
@@ -328,17 +328,17 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def get_battles_today(self):
+	def get_battles_today(self) -> dict:
 		return requests.get(
 			f"{self.api}/battles/today",
 			headers=self.headers).json()
 
-	def get_characters(self, page: int = 1):
+	def get_characters(self, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/chars?page={page}",
 			headers=self.headers).json()
 
-	def get_character_info(self, character_id: int, character_link: str):
+	def get_character_info(self, character_id: int, character_link: str) -> dict:
 		data = {
 			"id": character_id,
 			"link": character_link
@@ -348,32 +348,32 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def get_games(self, page: int = 1):
+	def get_games(self, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/games?page={page}",
 			headers=self.headers).json()
 
-	def get_game_info(self, game_id: int):
+	def get_game_info(self, game_id: int) -> dict:
 		return requests.get(
 			f"{self.api}/games/{game_id}",
 			headers=self.headers).json()
 
-	def get_game_comments(self, game_id: int, page: int = 1):
+	def get_game_comments(self, game_id: int, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/comments?id=games-{game_id}&page={page}",
 			headers=self.headers).json()
 
-	def get_cinema(self, page: int = 1):
+	def get_cinema(self, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/cinema?page={page}",
 			headers=self.headers).json()
 
-	def get_cinema_info(self, cinema_id: str):
+	def get_cinema_info(self, cinema_id: str) -> dict:
 		return requests.get(
 			f"{self.api}/cinema?id={cinema_id}",
 			headers=self.headers).json()
 
-	def create_cinema(self, watch_id: str, is_hidden: bool = False):
+	def create_cinema(self, watch_id: str, is_hidden: bool = False) -> dict:
 		data = {
 			"id": watch_id,
 			"user_id": self.user_id,
@@ -384,52 +384,52 @@ class Anime777:
 			f"{self.api}/cinema",
 			headers=self.headers).json()
 
-	def get_random_anime(self):
+	def get_random_anime(self) -> dict:
 		return requests.get(
 			f"{self.api}/rand",
 			headers=self.headers).json()
 
-	def get_ranobes(self, page: int = 1):
+	def get_ranobes(self, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/ranobes?page={page}",
 			headers=self.headers).json()
 
-	def get_ranobe_info(self, ranobe_id: int):
+	def get_ranobe_info(self, ranobe_id: int) -> dict:
 		return requests.get(
 			f"{self.api}/ranobes/{ranobe_id}",
 			headers=self.headers).json()
 
-	def get_ranobe_comments(self, ranobe_id: int, page: int = 1):
+	def get_ranobe_comments(self, ranobe_id: int, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/comments?id=ranobes-{ranobe_id}&page={page}",
 			headers=self.headers).json()
 
-	def get_comics(self, page: int = 1):
+	def get_comics(self, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/comics?page={page}",
 			headers=self.headers).json()
 
-	def get_comics_info(self, comics_id: int):
+	def get_comics_info(self, comics_id: int) -> dict:
 		return requests.get(
 			f"{self.api}/comics/{comics_id}",
 			headers=self.headers).json()
 
-	def get_comics_comments(self, comics_id: int, page: int = 1):
+	def get_comics_comments(self, comics_id: int, page: int = 1) -> dict:
 		return requests.get(
 			f"{self.api}/comments?id=comics-{comics_id}&page={page}",
 			headers=self.headers).json()
 
-	def get_notifications(self):
+	def get_notifications(self) -> dict:
 		return requests.get(
 			f"{self.api}/user/notifications",
 			headers=self.headers).json()
 
-	def get_inventory(self):
+	def get_inventory(self) -> dict:
 		return requests.get(
 			f"{self.api}/items/store",
 			headers=self.headers).json()
 
-	def buy_item(self, item_type: str, item_id: int):
+	def buy_item(self, item_type: str, item_id: int) -> dict:
 		data = {
 			"type": item_type,
 			"id": item_id
@@ -439,17 +439,17 @@ class Anime777:
 			data=data,
 			headers=self.headers).json()
 
-	def buy_random_item(self):
+	def buy_random_item(self) -> dict:
 		return requests.get(
 			f"{self.api}/items/random",
 			headers=self.headers).json()
 
-	def get_inbox(self):
+	def get_inbox(self) -> dict:
 		return requests.get(
 			f"{self.api}/user/profile/pms",
 			headers=self.headers).json()
 
-	def redeem_promo_ccode(self, promo_code: str):
+	def redeem_promo_ccode(self, promo_code: str) -> dict:
 		data = {
 			"code": promo_code
 		}
@@ -466,7 +466,7 @@ class Anime777:
 			country: str = None,
 			city: str = None,
 			contacts: str = None,
-			about: str = None):
+			about: str = None) -> dict:
 		data = {}
 		if real_name:
 			data["realname"] = real_name
